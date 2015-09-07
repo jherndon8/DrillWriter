@@ -28,14 +28,15 @@ public class Production {
             return null;
         }
         Dot closestDot = null;
-        double distance;
+        double distance = Integer.MAX_VALUE;
+        double tmp = 0;
         for (Dot dot: dotList) {
             if (closestDot == null) {
                 closestDot = dot;
                 distance = DotCalculations.distance(frontToBack, sideToSide,
                     dot, set);
             } else {
-                double tmp = DotCalculations.distance(frontToBack, sideToSide,
+                tmp = DotCalculations.distance(frontToBack, sideToSide,
                     dot, set);
                 if (tmp < distance) {
                     distance = tmp;
