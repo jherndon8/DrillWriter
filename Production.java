@@ -15,6 +15,13 @@ public class Production {
     public void addDot() {
         dotList.add(new Dot());
     }
+    public void addDot(double frontToBack, double sideToSide) {
+        Dot newDot = new Dot();
+        dotList.add(newDot);
+        for (int i = 0; i <= countStructure.size(); i++) {
+            newDot.addSet(frontToBack, sideToSide);
+        }
+    }
     public Dot selectClosestDot(int set, double frontToBack, double sideToSide)
     {
         if (dotList.size() == 0) {
@@ -37,5 +44,13 @@ public class Production {
             }
         }
         return closestDot;
+    }
+    public void addSet(int counts) {
+        for (Dot dot : dotList) {
+            double ftb = dot.getFrontToBack(dot.getSetLength());
+            double sts = dot.getSideToSide(dot.getSetLength());
+            dot.addSet(ftb, sts);
+        }
+        countStructure.add(counts);
     }
 }
