@@ -6,11 +6,24 @@ import java.util.ArrayList;
  * @version 1.0
  */
 public class Production {
+    private Mode mode;
+    private int set = 0;
+    public int getSet() {
+        return set;
+    }
+    public Mode getMode() {
+        return mode;
+    }
+    public void setMode(Mode m) {
+        mode = m;
+    }
     private ArrayList<Dot> dotList;
     private ArrayList<Integer> countStructure;
+    private Dot curDot;
     public Production() {
         dotList = new ArrayList<>();
         countStructure = new ArrayList<>();
+        mode = Mode.ADDDOT;
     }
     public void addDot() {
         dotList.add(new Dot());
@@ -45,6 +58,12 @@ public class Production {
             }
         }
         return closestDot;
+    }
+    public Dot getCurrentDot() {
+        return curDot;
+    }
+    public void setCurrentDot(Dot dot) {
+        curDot = dot;
     }
     public void addSet(int counts) {
         for (Dot dot : dotList) {

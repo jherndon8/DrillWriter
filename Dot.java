@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import javafx.scene.shape.Circle;
 /**
  * This is a class for a dot, or a marching member.
  * It contains the information for the front to back and side to side
@@ -8,6 +9,7 @@ import java.util.ArrayList;
  */
 public class Dot {
     private int set_length;
+    private Circle circle;
     private ArrayList<dotEntry> dot_list;
     private class dotEntry {
         public double front_to_back;
