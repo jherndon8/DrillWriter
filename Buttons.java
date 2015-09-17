@@ -21,7 +21,27 @@ public class Buttons {
         Button btn = new Button();
         btn.setText("Add new Set");
         btn.setOnAction(w -> {
-            production.setMode(Mode.ADDSET);
+            production.addSet(16);
+        });
+        return btn;
+    }
+    public static Button nextSet(Pane pane, Production production) {
+        Button btn = new Button();
+        btn.setText("Next Set");
+        btn.setOnAction(w -> {
+            if (production.getCounts().length >= production.getSet()) {
+                production.setSet(production.getSet() + 1);
+            }
+        });
+        return btn;
+    }
+    public static Button previousSet(Pane pane, Production production) {
+        Button btn = new Button();
+        btn.setText("Previous Set");
+        btn.setOnAction(w -> {
+            if (production.getSet() > 0) {
+                production.setSet(production.getSet() - 1);
+            }
         });
         return btn;
     }

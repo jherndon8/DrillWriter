@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import javafx.scene.layout.Pane;
 /**
  * This is a class that contains all the dot information and count structures
  * for a visual production.
@@ -8,8 +9,17 @@ import java.util.ArrayList;
 public class Production {
     private Mode mode;
     private int set = 0;
+    private ArrayList<Dot> dotList;
+    private ArrayList<Integer> countStructure;
+    private Dot curDot;
     public int getSet() {
         return set;
+    }
+    public void setSet(int set) {
+        this.set = set;
+        for (Dot dot: dotList) {
+            dot.move(set);
+        }
     }
     public Mode getMode() {
         return mode;
@@ -17,9 +27,9 @@ public class Production {
     public void setMode(Mode m) {
         mode = m;
     }
-    private ArrayList<Dot> dotList;
-    private ArrayList<Integer> countStructure;
-    private Dot curDot;
+    public Integer[] getCounts() {
+        return countStructure.toArray(new Integer[0]);
+    }
     public Production() {
         dotList = new ArrayList<>();
         countStructure = new ArrayList<>();
@@ -34,6 +44,15 @@ public class Production {
         for (int i = 0; i <= countStructure.size(); i++) {
             newDot.addSet(frontToBack, sideToSide);
         }
+    }
+    public void addDot(double frontToBack, double sideToSide, Pane canvas) {
+        Dot newDot = new Dot();
+        dotList.add(newDot);
+        for (int i = 0; i <= countStructure.size(); i++) {
+            newDot.addSet(frontToBack, sideToSide);
+        }
+        newDot.move(set);
+        canvas.getChildren().add(newDot.getCircle());
     }
     public Dot selectClosestDot(int set, double frontToBack, double sideToSide)
     {
@@ -70,7 +89,9 @@ public class Production {
             double ftb = dot.getFrontToBack(dot.getSetLength());
             double sts = dot.getSideToSide(dot.getSetLength());
             dot.addSet(ftb, sts);
+            dot.move(countStructure.size() + 1);
         }
         countStructure.add(counts);
+        set = countStructure.size();
     }
 }
