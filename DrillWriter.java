@@ -18,11 +18,12 @@ public class DrillWriter extends Application {
         Field field = new Field();
         Pane canvas = field.canvas;
         ScreenControl control = new ScreenControl(canvas, production);
-        HBox buttons = new HBox(Buttons.select(canvas, production),
+        HBox buttons = new HBox(Buttons.moveDot(canvas, production),
             Buttons.addDot(canvas, production),
             Buttons.addSet(canvas, production),
+            Buttons.previousSet(canvas, production),
             Buttons.nextSet(canvas, production),
-            Buttons.previousSet(canvas, production));
+            Buttons.play(canvas, production));
         VBox root = new VBox(canvas, buttons);
 
         Scene scene = new Scene(root);

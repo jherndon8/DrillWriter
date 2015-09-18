@@ -1,11 +1,11 @@
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 public class Buttons {
-    public static Button select(Pane pane, Production production) {
+    public static Button moveDot(Pane pane, Production production) {
         Button btn = new Button();
-        btn.setText("Select");
+        btn.setText("Move Single Dot");
         btn.setOnAction(w -> {
-            production.setMode(Mode.SELECT);
+            production.setMode(Mode.MOVEDOT);
         });
         return btn;
     }
@@ -29,9 +29,10 @@ public class Buttons {
         Button btn = new Button();
         btn.setText("Next Set");
         btn.setOnAction(w -> {
-            if (production.getCounts().length >= production.getSet()) {
+            if (production.getCounts().length > production.getSet()) {
                 production.setSet(production.getSet() + 1);
             }
+            System.out.println(production.getSet());
         });
         return btn;
     }
@@ -42,6 +43,15 @@ public class Buttons {
             if (production.getSet() > 0) {
                 production.setSet(production.getSet() - 1);
             }
+            System.out.println(production.getSet());
+        });
+        return btn;
+    }
+    public static Button play(Pane pane, Production production) {
+        Button btn = new Button();
+        btn.setText("Play Set");
+        btn.setOnAction(w -> {
+            production.play();
         });
         return btn;
     }

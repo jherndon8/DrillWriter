@@ -23,16 +23,16 @@ public class ScreenControl {
                     Mode mode = production.getMode();
                     switch(mode) {
                         case ADDDOT:
-                            System.out.println("Adding dot");
+                            //System.out.println("Adding dot");
                             production.addDot(e.getY(), e.getX(), canvas);
                             break;
-                        case SELECT:
+                        case MOVEDOT:
                             production.setCurrentDot(production
                                 .selectClosestDot(production.getSet(),
                                     e.getY(), e.getX()));
                             production.setMode(Mode.MOVEDOT);
                             break;
-                        case MOVEDOT:
+                        case SELECT:
                         default:
                             break;
                     }
@@ -47,7 +47,7 @@ public class ScreenControl {
                     switch(mode) {
                         case MOVEDOT:
                             production.getCurrentDot().change(production
-                                .getCounts().length, e.getY(), e.getX());
+                                .getSet(), e.getY(), e.getX());
                             production.getCurrentDot().move(production.getSet());
                     }
                 }

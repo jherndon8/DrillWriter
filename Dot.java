@@ -19,6 +19,12 @@ public class Dot {
             this.front_to_back = front_to_back;
             this.side_to_side = side_to_side;
         }
+        public boolean equals(Object other) {
+            if (other == null || !(other instanceof dotEntry)) return false;
+            dotEntry that = (dotEntry) other;
+            return this.front_to_back == that.front_to_back
+                && this.side_to_side == that.side_to_side;
+        }
     }
     public Dot() {
         dot_list = new ArrayList<>();
@@ -47,5 +53,9 @@ public class Dot {
     }
     public Circle getCircle() {
         return circle;
+    }
+    public boolean movesOnSet(int set) {
+        if (set <= 0 || set >= dot_list.size()) return false;
+        return !dot_list.get(set).equals(dot_list.get(set - 1));
     }
 }

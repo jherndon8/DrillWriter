@@ -3,4 +3,5 @@ public enum Mode {
     MOVEDOT,
     ADDDOT,
     ADDSET,
+    PLAY
 }

@@ -94,4 +94,8 @@ public class Production {
         countStructure.add(counts);
         set = countStructure.size();
     }
+    public void play() {
+        if (set <= 0) return;
+        Animate.play(set, dotList, countStructure.get(set - 1));
+    }
 }
