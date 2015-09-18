@@ -23,7 +23,8 @@ public class DrillWriter extends Application {
             Buttons.addSet(canvas, production),
             Buttons.previousSet(canvas, production),
             Buttons.nextSet(canvas, production),
-            Buttons.play(canvas, production));
+            Buttons.play(canvas, production),
+            Buttons.playAll(canvas, production));
         VBox root = new VBox(canvas, buttons);
 
         Scene scene = new Scene(root);

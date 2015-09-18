@@ -36,7 +36,7 @@ public class ScreenControl {
                         default:
                             break;
                     }
-                    System.out.println(production.getMode());
+                    //System.out.println(production.getMode());
                 }
             }
         );

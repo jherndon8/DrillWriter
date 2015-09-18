@@ -98,4 +98,12 @@ public class Production {
         if (set <= 0) return;
         Animate.play(set, dotList, countStructure.get(set - 1));
     }
+    public void playAll() {
+        int[] counts = new int[countStructure.size()];
+        for (int i = 0; i < countStructure.size(); i++) {
+            counts[i] = countStructure.get(i);
+        }
+        Animate.play(0, countStructure.size(), dotList, counts);
+        set = countStructure.size();
+    }
 }

@@ -32,7 +32,7 @@ public class Buttons {
             if (production.getCounts().length > production.getSet()) {
                 production.setSet(production.getSet() + 1);
             }
-            System.out.println(production.getSet());
+            //System.out.println(production.getSet());
         });
         return btn;
     }
@@ -43,7 +43,7 @@ public class Buttons {
             if (production.getSet() > 0) {
                 production.setSet(production.getSet() - 1);
             }
-            System.out.println(production.getSet());
+            //System.out.println(production.getSet());
         });
         return btn;
     }
@@ -52,6 +52,14 @@ public class Buttons {
         btn.setText("Play Set");
         btn.setOnAction(w -> {
             production.play();
+        });
+        return btn;
+    }
+    public static Button playAll(Pane pane, Production production) {
+        Button btn = new Button();
+        btn.setText("Play All");
+        btn.setOnAction(w -> {
+            production.playAll();
         });
         return btn;
     }
