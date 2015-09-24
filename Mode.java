@@ -1,7 +1,21 @@
+/**
+ * An enum for the mode of the production
+ */
 public enum Mode {
+    /**
+     * Used for selecting multiple dots
+     */
     SELECT,
+    /**
+     * Used for moving a single dot
+     */
     MOVEDOT,
+    /**
+     * Used when adding dots in opening set
+     */
     ADDDOT,
-    ADDSET,
+    /**
+     * Used when animating sets
+     */
     PLAY
 }

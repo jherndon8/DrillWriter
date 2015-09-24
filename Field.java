@@ -3,16 +3,27 @@ import javafx.scene.shape.Line;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import java.util.ArrayList;
+/**
+ * This class helps generate the field
+ * @author JT Herndon
+ * @version 1.0
+ */
 public class Field {
     public static final int WIDTH = 1080;
     public static final int HEIGHT = 480;
     public static Pane canvas;
+    /**
+     * No-arg constructor
+     */
     public Field() {
         canvas = new Pane();
         canvas.setPrefSize(WIDTH, HEIGHT);
         canvas.setStyle("-fx-background-color: green;");
         Draw();
     }
+    /**
+     * Draws the field
+     */
     private static void Draw() {
 
         ArrayList<Line> lines = new ArrayList<>();

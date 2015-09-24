@@ -2,18 +2,30 @@ import javafx.scene.layout.Pane;
 import javafx.scene.input.MouseEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+/**
+ * This class helps for controlling what goes on on the field
+ * @author JT Herndon
+ * @version 1.0
+ */
 public class ScreenControl {
     private Pane canvas;
     private Production production;
     private int sX;
     private int sY;
     //tmp variables for dragging stuff
+    /**
+     * Main constructor
+     * @param canvas the field Pane
+     * @param production the current Production
+     */
     public ScreenControl(Pane canvas, Production production) {
         this.canvas = canvas;
         this.production = production;
         initControls();
     }
-
+    /**
+     * Initiates the controls
+     */
     private void initControls() {
         canvas.addEventHandler(MouseEvent.MOUSE_PRESSED,
             new EventHandler<MouseEvent>() {

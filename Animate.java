@@ -9,9 +9,21 @@ import javafx.animation.PauseTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Transition;
 import javafx.util.Duration;
-
+/**
+ * Main class for handling animations
+ * @author JT Herndon
+ * @version 1.0
+ */
 public class Animate {
-    public static void play(int startSet, int endSet,  List<Dot> dotList,
+    /**
+     * A helper method that adds animations to an array of SequentialTransitions
+     * @param startSet the starting set
+     * @param endSet the ending set
+     * @param dotList a java.util.List of Dots which will be animated
+     * @param count an int array of the count structure
+     * @param seqTrans an array of SequentialTransitions for each dot
+     */
+    private static void play(int startSet, int endSet,  List<Dot> dotList,
         int[] count, SequentialTransition[] seqTrans) {
         if (startSet >= endSet || startSet < 0) return;
         ArrayList<Transition> paths = new ArrayList<>();
@@ -43,6 +55,14 @@ public class Animate {
         }
         play(startSet + 1, endSet, dotList, count, seqTrans);
     }
+    /**
+     * Animates dots in dotList from startSet to endSet, based on count
+     * structure in count
+     * @param startSet the starting set
+     * @param endSet the ending set
+     * @param dotList a java.util.List of Dots
+     * @count an int array of the count structure
+     */
     public static void play(int startSet, int endSet,  List<Dot> dotList,
         int[] count) {
         SequentialTransition[] a = new SequentialTransition[dotList.size()];
@@ -54,6 +74,13 @@ public class Animate {
             c.play();
         }
     }
+    /**
+     * A method that plays one set animation, starting with the previous set and
+     * ending on the set passed in as the argument
+     * @param set the set to be played
+     * @param dotList a java.util.List of Dots
+     * @param count an int of how many counts in the move
+     */
     public static void play(int set, List<Dot> dotList, int count) {
         int[] c = new int[set];
         c[set - 1] = count;
