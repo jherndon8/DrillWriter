@@ -25,7 +25,9 @@ public class Animate {
      */
     private static void play(int startSet, int endSet,  List<Dot> dotList,
         int[] count, SequentialTransition[] seqTrans) {
-        if (startSet >= endSet || startSet < 0) return;
+        if (startSet >= endSet || startSet < 0) {
+            return;
+        }
         ArrayList<Transition> paths = new ArrayList<>();
         int i = 0;
         for (Dot dot : dotList) {
@@ -64,12 +66,16 @@ public class Animate {
      * @count an int array of the count structure
      */
     public static void play(int startSet, int endSet,  List<Dot> dotList,
-        int[] count) {
+        int[] count, Buttons buttons) {
         SequentialTransition[] a = new SequentialTransition[dotList.size()];
         for (int b = 0; b < dotList.size(); b++) {
             a[b] = new SequentialTransition();
         }
+        buttons.disableAll();
         play(startSet, endSet, dotList, count, a);
+        a[0].setOnFinished(e -> {
+            buttons.enableAll();
+        });
         for (SequentialTransition c : a) {
             c.play();
         }
@@ -81,9 +87,10 @@ public class Animate {
      * @param dotList a java.util.List of Dots
      * @param count an int of how many counts in the move
      */
-    public static void play(int set, List<Dot> dotList, int count) {
+    public static void play(int set, List<Dot> dotList, int count,
+        Buttons buttons) {
         int[] c = new int[set];
         c[set - 1] = count;
-        play(set - 1, set, dotList, c);
+        play(set - 1, set, dotList, c, buttons);
     }
 }

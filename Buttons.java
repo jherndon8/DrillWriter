@@ -25,15 +25,7 @@ public class Buttons {
         previousSet = makePreviousSet();
         play = makePlay();
         playAll = makePlayAll();
-        if (production.getSet() == 0) {
-            previousSet.setDisable(true);
-        }
-        if (production.getSet() == production.getCounts().length) {
-            nextSet.setDisable(true);
-        }
-        if (production.bandSize() == 0) {
-            addSet.setDisable(true);
-        }
+        enableAll();
     }
 
     public Production getProduction() {
@@ -68,6 +60,7 @@ public class Buttons {
         btn.setText("add new dot");
         btn.setOnAction(w -> {
             production.setMode(Mode.ADDDOT);
+
         });
         return btn;
     }
@@ -87,9 +80,7 @@ public class Buttons {
         btn.setOnAction(w -> {
             production.addSet(16);
             production.setMode(Mode.MOVEDOT);
-            nextSet.setDisable(true);
-            previousSet.setDisable(false);
-            addDot.setDisable(true);
+            enableAll();
         });
         return btn;
     }
@@ -109,11 +100,7 @@ public class Buttons {
         btn.setOnAction(w -> {
             if (production.getCounts().length > production.getSet()) {
                 production.setSet(production.getSet() + 1);
-                previousSet.setDisable(false);
-                addDot.setDisable(true);
-            }
-            if (production.getCounts().length == production.getSet()) {
-                nextSet.setDisable(true);
+                enableAll();
             }
             //System.out.println(production.getSet());
         });
@@ -135,11 +122,7 @@ public class Buttons {
         btn.setOnAction(w -> {
             if (production.getSet() > 0) {
                 production.setSet(production.getSet() - 1);
-                if (production.getSet() == 0) {
-                    addDot.setDisable(false);
-                    previousSet.setDisable(true);
-                }
-                nextSet.setDisable(false);
+                enableAll();
             }
             //System.out.println(production.getSet());
         });
@@ -158,7 +141,7 @@ public class Buttons {
         Button btn = new Button();
         btn.setText("Play Set");
         btn.setOnAction(w -> {
-            production.play();
+            production.play(this);
         });
         return btn;
     }
@@ -176,12 +159,42 @@ public class Buttons {
         Button btn = new Button();
         btn.setText("Play All");
         btn.setOnAction(w -> {
-            production.playAll();
+            production.playAll(this);
         });
         return btn;
     }
 
     public Button playAll() {
         return playAll;
+    }
+
+    public void disableAll() {
+        playAll.setDisable(true);
+        play.setDisable(true);
+        addDot.setDisable(true);
+        moveDot.setDisable(true);
+        nextSet.setDisable(true);
+        previousSet.setDisable(true);
+        addSet.setDisable(true);
+    }
+
+    public void enableAll() {
+        disableAll();
+        moveDot.setDisable(false);
+        if (production.bandSize() > 0 ) {
+            addSet.setDisable(false);
+        }
+        if (production.getCounts().length > 0) {
+            playAll.setDisable(false);
+        }
+        if (production.getSet() > 0) {
+            play.setDisable(false);
+            previousSet.setDisable(false);
+        } else {
+            addDot.setDisable(false);
+        }
+        if (production.getSet() < production.getCounts().length) {
+            nextSet.setDisable(false);
+        }
     }
 }

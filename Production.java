@@ -94,16 +94,16 @@ public class Production {
         countStructure.add(counts);
         set = countStructure.size();
     }
-    public void play() {
+    public void play(Buttons buttons) {
         if (set <= 0) return;
-        Animate.play(set, dotList, countStructure.get(set - 1));
+        Animate.play(set, dotList, countStructure.get(set - 1), buttons);
     }
-    public void playAll() {
+    public void playAll(Buttons buttons) {
         int[] counts = new int[countStructure.size()];
         for (int i = 0; i < countStructure.size(); i++) {
             counts[i] = countStructure.get(i);
         }
-        Animate.play(0, countStructure.size(), dotList, counts);
+        Animate.play(0, countStructure.size(), dotList, counts, buttons);
         set = countStructure.size();
     }
     public int bandSize() {
