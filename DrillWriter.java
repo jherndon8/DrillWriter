@@ -19,18 +19,19 @@ public class DrillWriter extends Application {
     @Override
     public void start(Stage stage) {
         production = new Production();
+        Buttons buttons = new Buttons(production);
         int set = 0;
         Field field = new Field();
         Pane canvas = field.canvas;
-        ScreenControl control = new ScreenControl(canvas, production);
-        HBox buttons = new HBox(Buttons.moveDot(production),
-            Buttons.addDot(production),
-            Buttons.addSet(production),
-            Buttons.previousSet(production),
-            Buttons.nextSet(production),
-            Buttons.play(production),
-            Buttons.playAll(production));
-        VBox root = new VBox(canvas, buttons);
+        ScreenControl control = new ScreenControl(canvas, buttons);
+        HBox buttonBox = new HBox(buttons.moveDot(),
+            buttons.addDot(),
+            buttons.addSet(),
+            buttons.previousSet(),
+            buttons.nextSet(),
+            buttons.play(),
+            buttons.playAll());
+        VBox root = new VBox(canvas, buttonBox);
 
         Scene scene = new Scene(root);
         stage.setScene(scene);

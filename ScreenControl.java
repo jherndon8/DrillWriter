@@ -12,15 +12,17 @@ public class ScreenControl {
     private Production production;
     private int sX;
     private int sY;
+    private Buttons buttons;
     //tmp variables for dragging stuff
     /**
      * Main constructor
      * @param canvas the field Pane
      * @param production the current Production
      */
-    public ScreenControl(Pane canvas, Production production) {
+    public ScreenControl(Pane canvas, Buttons buttons) {
         this.canvas = canvas;
-        this.production = production;
+        this.production = buttons.getProduction();
+        this.buttons = buttons;
         initControls();
     }
     /**
@@ -37,6 +39,7 @@ public class ScreenControl {
                         case ADDDOT:
                             //System.out.println("Adding dot");
                             production.addDot(e.getY(), e.getX(), canvas);
+                            buttons.addSet().setDisable(false);
                             break;
                         case MOVEDOT:
                             production.setCurrentDot(production
@@ -49,6 +52,19 @@ public class ScreenControl {
                             break;
                     }
                     //System.out.println(production.getMode());
+                }
+            }
+        );
+        canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED,
+            new EventHandler<MouseEvent>() {
+                public void handle(MouseEvent e) {
+                    Mode mode = production.getMode();
+                    switch(mode) {
+                        case MOVEDOT:
+                            production.getCurrentDot().change(production
+                                .getSet(), e.getY(), e.getX());
+                            production.getCurrentDot().move(production.getSet());
+                    }
                 }
             }
         );

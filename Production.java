@@ -106,4 +106,7 @@ public class Production {
         Animate.play(0, countStructure.size(), dotList, counts);
         set = countStructure.size();
     }
+    public int bandSize() {
+        return dotList.size();
+    }
 }
