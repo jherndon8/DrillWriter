@@ -1,6 +1,8 @@
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import java.util.ArrayList;
 /**
@@ -51,6 +53,33 @@ public class Field {
             yl = y < 10 - y ? y : 10 - y;
         }
         */
+
+        //Yard numbers
+        for (int w = 10; w < 100; w += 10) {
+            int z = 100 - w < w ? 100 - w: w;
+            int y = HEIGHT - 81 + 15;
+            int x = 90 + w * 9;
+            String a = "" + z;
+            a = a.substring(0, 1) + " " + a.substring(1);
+
+            //Front-field
+            Text text = new Text(x - 13, y, a);
+            text.setFont(new Font(20));
+            text.setStroke(Color.WHITE);
+            /*if (z == 50) {
+                text.setStroke(Color.YELLOW);
+            }*/
+            text.setFill(Color.WHITE);
+            canvas.getChildren().add(text);
+
+            //Back-field
+            text = new Text(x - 13, 81, a);
+            text.setFont(new Font(20));
+            text.setStroke(Color.WHITE);
+            text.setFill(Color.WHITE);
+            text.setRotate(180);
+            canvas.getChildren().add(text);
+        }
     }
 
 }
