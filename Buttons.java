@@ -101,6 +101,9 @@ public class Buttons {
             if (production.getCounts().length > production.getSet()) {
                 production.setSet(production.getSet() + 1);
                 enableAll();
+                if (production.getMode() == Mode.ADDDOT) {
+                    production.setMode(Mode.MOVEDOT);
+                }
             }
             //System.out.println(production.getSet());
         });
@@ -180,9 +183,12 @@ public class Buttons {
 
     public void enableAll() {
         disableAll();
-        moveDot.setDisable(false);
+        if (production.getMode().equals(Mode.PLAY)) {
+            return;
+        }
         if (production.bandSize() > 0 ) {
             addSet.setDisable(false);
+            moveDot.setDisable(false);
         }
         if (production.getCounts().length > 0) {
             playAll.setDisable(false);

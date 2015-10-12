@@ -39,7 +39,6 @@ public class ScreenControl {
                         case ADDDOT:
                             //System.out.println("Adding dot");
                             production.addDot(e.getY(), e.getX(), canvas);
-                            buttons.addSet().setDisable(false);
                             break;
                         case MOVEDOT:
                             production.setCurrentDot(production
@@ -52,6 +51,7 @@ public class ScreenControl {
                             break;
                     }
                     //System.out.println(production.getMode());
+                    buttons.enableAll();
                 }
             }
         );
