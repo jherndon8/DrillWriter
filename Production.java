@@ -104,7 +104,7 @@ public class Production {
             counts[i] = countStructure.get(i);
         }
         Animate.play(0, countStructure.size(), dotList, counts, buttons);
-        set = countStructure.size();
+        setSet(countStructure.size());
     }
     public int bandSize() {
         return dotList.size();

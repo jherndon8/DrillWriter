@@ -72,12 +72,17 @@ public class Animate {
             a[b] = new SequentialTransition();
         }
         buttons.disableAll();
-        Mode prevMode = buttons.getProduction().getMode();
+        Mode prevMode;
+        if (buttons.getProduction().getMode().equals(Mode.ADDDOT)) {
+            prevMode = Mode.MOVEDOT;
+        } else {
+            prevMode = buttons.getProduction().getMode();
+        }
         buttons.getProduction().setMode(Mode.PLAY);
         play(startSet, endSet, dotList, count, a);
         a[0].setOnFinished(e -> {
-            buttons.enableAll();
             buttons.getProduction().setMode(prevMode);
+            buttons.enableAll();
         });
         for (SequentialTransition c : a) {
             c.play();
