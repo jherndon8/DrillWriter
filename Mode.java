@@ -7,6 +7,10 @@ public enum Mode {
      */
     SELECT,
     /**
+     * Used for selecting multiple dots by drawing a box
+     */
+    BOXSELECT,
+    /**
      * Used for moving a single dot
      */
     MOVEDOT,

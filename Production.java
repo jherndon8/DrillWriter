@@ -12,32 +12,41 @@ public class Production {
     private ArrayList<Dot> dotList;
     private ArrayList<Integer> countStructure;
     private Dot curDot;
+    private SelectDots selector;
     public int getSet() {
         return set;
     }
+
     public void setSet(int set) {
         this.set = set;
         for (Dot dot: dotList) {
             dot.move(set);
         }
     }
+
     public Mode getMode() {
         return mode;
     }
+
     public void setMode(Mode m) {
         mode = m;
     }
+
     public Integer[] getCounts() {
         return countStructure.toArray(new Integer[0]);
     }
+
     public Production() {
         dotList = new ArrayList<>();
         countStructure = new ArrayList<>();
         mode = Mode.ADDDOT;
+        selector = new SelectDots(this, dotList);
     }
+
     public void addDot() {
         dotList.add(new Dot());
     }
+
     public void addDot(double frontToBack, double sideToSide) {
         Dot newDot = new Dot();
         dotList.add(newDot);
@@ -45,6 +54,7 @@ public class Production {
             newDot.addSet(frontToBack, sideToSide);
         }
     }
+
     public void addDot(double frontToBack, double sideToSide, Pane canvas) {
         Dot newDot = new Dot();
         dotList.add(newDot);
@@ -54,7 +64,12 @@ public class Production {
         newDot.move(set);
         canvas.getChildren().add(newDot.getCircle());
     }
-    public Dot selectClosestDot(int set, double frontToBack, double sideToSide)
+
+    public Dot selectClosestDot(double frontToBack, double sideToSide) {
+        return selectClosestDot(set, frontToBack, sideToSide);
+    }
+
+    private Dot selectClosestDot(int set, double frontToBack, double sideToSide)
     {
         if (dotList.size() == 0) {
             return null;
@@ -78,12 +93,15 @@ public class Production {
         }
         return closestDot;
     }
+
     public Dot getCurrentDot() {
         return curDot;
     }
+
     public void setCurrentDot(Dot dot) {
         curDot = dot;
     }
+
     public void addSet(int counts) {
         for (Dot dot : dotList) {
             double ftb = dot.getFrontToBack(dot.getSetLength());
@@ -94,10 +112,12 @@ public class Production {
         countStructure.add(counts);
         set = countStructure.size();
     }
+
     public void play(Buttons buttons) {
         if (set <= 0) return;
         Animate.play(set, dotList, countStructure.get(set - 1), buttons);
     }
+
     public void playAll(Buttons buttons) {
         int[] counts = new int[countStructure.size()];
         for (int i = 0; i < countStructure.size(); i++) {
@@ -106,7 +126,12 @@ public class Production {
         Animate.play(0, countStructure.size(), dotList, counts, buttons);
         setSet(countStructure.size());
     }
+
     public int bandSize() {
         return dotList.size();
+    }
+
+    public SelectDots getSelector() {
+        return selector;
     }
 }

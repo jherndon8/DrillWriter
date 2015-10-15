@@ -15,6 +15,8 @@ public class Buttons {
     private Button previousSet;
     private Button play;
     private Button playAll;
+    private Button boxSelect;
+    private Button toggleSelect;
 
     public Buttons(Production production) {
         this.production = production;
@@ -25,6 +27,8 @@ public class Buttons {
         previousSet = makePreviousSet();
         play = makePlay();
         playAll = makePlayAll();
+        boxSelect = makeBoxSelect();
+        toggleSelect = makeToggleSelect();;
         enableAll();
     }
 
@@ -42,6 +46,7 @@ public class Buttons {
         btn.setText("move single dot");
         btn.setOnAction(w -> {
             production.setMode(Mode.MOVEDOT);
+            production.getSelector().clear();
         });
         return btn;
     }
@@ -60,6 +65,7 @@ public class Buttons {
         btn.setText("add new dot");
         btn.setOnAction(w -> {
             production.setMode(Mode.ADDDOT);
+            production.getSelector().clear();
 
         });
         return btn;
@@ -171,6 +177,35 @@ public class Buttons {
         return playAll;
     }
 
+    private Button makeBoxSelect() {
+        Button btn = new Button();
+        btn.setText("Box Select");
+        btn.setOnAction(w -> {
+            production.setMode(Mode.BOXSELECT);
+        });
+        return btn;
+    }
+
+    public Button boxSelect() {
+        return boxSelect;
+    }
+
+    private Button makeToggleSelect() {
+        Button btn = new Button();
+        btn.setText("Select/Deselect individual dot");
+        btn.setOnAction(w -> {
+            production.setMode(Mode.SELECT);
+        });
+        return btn;
+    }
+
+    public Button toggleSelect() {
+        return toggleSelect;
+    }
+    
+    /** 
+     * Disables all buttons
+     */
     public void disableAll() {
         playAll.setDisable(true);
         play.setDisable(true);
@@ -179,8 +214,14 @@ public class Buttons {
         nextSet.setDisable(true);
         previousSet.setDisable(true);
         addSet.setDisable(true);
+        toggleSelect.setDisable(true);
+        boxSelect.setDisable(true);
     }
 
+    /**
+     * Enables all buttons which are valid in the production's current state,
+     * and disables all others
+     */
     public void enableAll() {
         disableAll();
         if (production.getMode().equals(Mode.PLAY)) {
@@ -189,6 +230,8 @@ public class Buttons {
         if (production.bandSize() > 0 ) {
             addSet.setDisable(false);
             moveDot.setDisable(false);
+            toggleSelect.setDisable(false);
+            boxSelect.setDisable(false);
         }
         if (production.getCounts().length > 0) {
             playAll.setDisable(false);

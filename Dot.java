@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import javafx.scene.shape.Circle;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 /**
  * This is a class for a dot, or a marching member.
  * It contains the information for the front to back and side to side
@@ -41,6 +42,7 @@ public class Dot {
         dot_list = new ArrayList<>();
         set_length = -1;
         circle = new Circle(4);
+        circle.setFill(Color.BLUE);
     }
     /**
      * Adds a set with new coordinates
