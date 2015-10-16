@@ -2,7 +2,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 /**
  * a class that produces the buttons for the drillwriter gui
- * @author jt herndon
+ * @author JT herndon
  * @version 1.0
  */
 public class Buttons {
@@ -17,6 +17,7 @@ public class Buttons {
     private Button playAll;
     private Button boxSelect;
     private Button toggleSelect;
+    private Button moveSelected;
 
     public Buttons(Production production) {
         this.production = production;
@@ -28,7 +29,8 @@ public class Buttons {
         play = makePlay();
         playAll = makePlayAll();
         boxSelect = makeBoxSelect();
-        toggleSelect = makeToggleSelect();;
+        toggleSelect = makeToggleSelect();
+        moveSelected = makeMoveSelected();
         enableAll();
     }
 
@@ -182,6 +184,7 @@ public class Buttons {
         btn.setText("Box Select");
         btn.setOnAction(w -> {
             production.setMode(Mode.BOXSELECT);
+            enableAll();
         });
         return btn;
     }
@@ -195,12 +198,26 @@ public class Buttons {
         btn.setText("Select/Deselect individual dot");
         btn.setOnAction(w -> {
             production.setMode(Mode.SELECT);
+            enableAll();
         });
         return btn;
     }
 
     public Button toggleSelect() {
         return toggleSelect;
+    }
+
+    private Button makeMoveSelected() {
+        Button btn = new Button();
+        btn.setText("Drag Selected Dots");
+        btn.setOnAction(w -> {
+            production.setMode(Mode.MOVESELECTED);
+        });
+        return btn;
+    }
+
+    public Button moveSelected() {
+        return moveSelected;
     }
     
     /** 
@@ -216,6 +233,7 @@ public class Buttons {
         addSet.setDisable(true);
         toggleSelect.setDisable(true);
         boxSelect.setDisable(true);
+        moveSelected.setDisable(true);
     }
 
     /**
@@ -232,6 +250,9 @@ public class Buttons {
             moveDot.setDisable(false);
             toggleSelect.setDisable(false);
             boxSelect.setDisable(false);
+            if (production.getSelector().selectSize() > 0) {
+                moveSelected.setDisable(false);
+            }
         }
         if (production.getCounts().length > 0) {
             playAll.setDisable(false);

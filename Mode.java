@@ -21,5 +21,9 @@ public enum Mode {
     /**
      * Used when animating sets
      */
-    PLAY
+    PLAY,
+    /**
+     * Used when moving selected dots
+     */
+    MOVESELECTED
 }

@@ -64,6 +64,12 @@ public class ScreenControl {
                         case SELECT:
                             production.getSelector().toggleSelect(production
                                 .selectClosestDot(e.getY(), e.getX()));
+                            break;
+                        case MOVESELECTED:
+                            sX = e.getX();
+                            sY = e.getY();
+                            production.getSelector().initMove();
+                            break;
                         default:
                             break;
                     }
@@ -92,6 +98,10 @@ public class ScreenControl {
                             production.getSelector().boxSelect(sX, e.getX(), sY,
                                 e.getY());
                             break;
+                        case MOVESELECTED:
+                            production.getSelector().move(sX, sY, e.getX(),
+                                e.getY());
+                            break;
                     }
                 }
             }
@@ -108,7 +118,10 @@ public class ScreenControl {
                             break;
                         case BOXSELECT:
                             selectRect.setVisible(false);
+                            buttons.enableAll();
                             break;
+                        default:
+                            buttons.enableAll();
                     }
                 }
             }

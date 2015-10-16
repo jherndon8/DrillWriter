@@ -9,6 +9,7 @@ public class SelectDots {
     private ArrayList<Dot> selected;
     private Production production;
     private ArrayList<Dot> dotList;
+    private Dot prevSpots;
     public SelectDots(Production production, ArrayList<Dot> dotList) {
         selected = new ArrayList<>();
         this.production = production;
@@ -22,6 +23,26 @@ public class SelectDots {
             return true;
         }
         return false;
+    }
+
+    public void initMove() {
+        prevSpots = new Dot();
+        int set = production.getSet();
+        for (int i = 0; i < selected.size(); i++) {
+            Dot dot = selected.get(i);
+            prevSpots.addSet(dot.getFrontToBack(set), dot.getSideToSide(set));
+        }
+    }
+
+    public void move(double startX, double startY, double newX, double newY) {
+        int set = production.getSet();
+        for (int i = 0; i < selected.size(); i++) {
+            Dot dot = selected.get(i);
+            double oldX = prevSpots.getSideToSide(i);
+            double oldY = prevSpots.getFrontToBack(i);
+            dot.change(set, oldY + newY - startY , oldX + newX - startX);
+            dot.move(set);
+        }
     }
 
     public boolean deselect(Dot dot) {
@@ -57,5 +78,9 @@ public class SelectDots {
                 deselect(dot);
             }
         }
+    }
+
+    public int selectSize() {
+        return selected.size();
     }
 }
