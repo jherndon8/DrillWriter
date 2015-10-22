@@ -1,9 +1,10 @@
 /**
  * This is a static class for making dot calculations
- * 
- *
+ * @author JT Herndon
+ * @version 1.0
  */
 public final class DotCalculations {
+    public static final int PIXELS_PER_FEET = 3;
     //measured in feet;
     public static final int SIDELINE_TO_HASH = 60;
     public static final int HASH_TO_HASH = 40;
@@ -61,5 +62,130 @@ public final class DotCalculations {
      */
     public static double stepsToFeet(double steps) {
         return steps / 8 * 15;
+    }
+    public static double pixelsToSteps(double pixels) {
+        return feetToSteps(pixels / PIXELS_PER_FEET);
+    }
+    public static double stepsToPixels(double steps) {
+        return stepsToFeet(steps) * PIXELS_PER_FEET;
+    }
+    public static int yardline(double x) {
+        int ret = (int) ((x - 45 * 3 / 2) / 45);
+        if (ret < 0) {
+            return 0;
+        } else if (ret > 20) {
+            ret = 20;
+        }
+        return ret * 5;
+    }
+
+    public static double steps(double x) {
+        double ret = x - (90 + 9 * yardline(x));
+        return pixelsToSteps(ret);
+    }
+    /**
+     * This method takes an x-coordinate on the screen and converts it to a
+     * coordinate on a dot sheet
+     * @param x the x-coordinate
+     * @return the description of this x-coordinate using five-yard lines
+     */
+    public static String sideToSide(double x) {
+        int yardline = yardline(x);
+        double steps = steps(x);;
+        int side;
+        /*yardline = (int) ((x - 45 * 3 / 2) / 45);
+        if (yardline < 0) {
+            yardline = 0;
+        } else if (yardline > 20) {
+            yardline = 20;
+        }
+        steps = x - (90 +  45 * yardline);
+        yardline *= 5;
+        steps = pixelsToSteps(steps);
+        */
+        if (yardline > 50) {
+            yardline = 100 - yardline;
+            side = 2;
+        } else if (yardline == 50) {
+            if (steps > 0) {
+                side = 2;
+            } else if (steps < 0) {
+                side = 1;
+            } else {
+                return ("On 50 yard line\t\t\t");
+            }
+        } else {
+            side = 1;
+        }
+        String yardside;
+        if (side == 1 && steps < 0 || side == 2 && steps > 0) {
+            yardside = String.format("%1.2f outside ", Math.abs(steps));
+        } else if (side == 1 && steps > 0 || side == 2 && steps < 0) {
+            yardside = String.format("%1.2f inside ", Math.abs(steps));
+        } else {
+            yardside = "On ";
+        }
+        String ret;
+        if (yardline == 0) {
+            ret = yardside + "side " + side + " Goal line\t";
+        } else {
+            ret = yardside + "side " + side + " " + yardline + " yard line ";
+        }
+        if (yardside.equals("On ")) {
+            ret = ret + "\t\t";
+        }
+        return ret;
+    }
+
+    public static String frontToBack(double y) {
+        String hash;
+        double totalFeet = stepsToFeet(pixelsToSteps(y));
+        double feet;
+        if (totalFeet < SIDELINE_TO_HASH / 2) {
+            hash = " back sideline";
+            feet = totalFeet;
+        } else if (totalFeet < SIDELINE_TO_HASH + HASH_TO_HASH / 2) {
+            hash = " back hash";
+            feet = totalFeet - SIDELINE_TO_HASH;
+        } else if (totalFeet < HASH_TO_HASH + SIDELINE_TO_HASH * 3 / 2) {
+            hash = " front hash";
+            feet = totalFeet - SIDELINE_TO_HASH - HASH_TO_HASH;
+        } else {
+            hash = " front sideline";
+            feet = totalFeet - 2 * SIDELINE_TO_HASH - HASH_TO_HASH;
+        }
+        String ret;
+        if (feet < 0) {
+            ret = String.format("%2.2f", -feetToSteps(feet)) + " behind";
+        } else if (feet > 0) {
+            ret = String.format("%2.2f", feetToSteps(feet)) + " in front of";
+        } else {
+            ret = "On";
+        }
+        return ret + hash;
+    }
+
+    public static double x(int yardline, double steps) {
+        return 90 + 9*yardline + stepsToPixels(steps);
+    }
+    /*public static double y(int hashline, double steps) {
+    }*/
+    public static double snapX(double x) {
+        int yl = yardline(x);
+        double steps = steps(x);
+        steps = steps > 0 ? steps + 0.5 : steps - 0.5;
+        int next = (int) steps;
+        return x(yl, next);
+    }
+    public static double snapY(double y) {
+        double ret = (int) ((y + 3) / 6);
+        ret *= 6;
+        if (ret < 0) {
+            ret = 0;
+        } else if (ret > PIXELS_PER_FEET * (HASH_TO_HASH + 2
+            * SIDELINE_TO_HASH)) {
+            ret = HASH_TO_HASH + 2 * SIDELINE_TO_HASH;
+        }
+        return ret;
     }
 }

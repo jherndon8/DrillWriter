@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
  * @author JT Herndon
  * @version 1.0
  */
-public class SelectDots {
+public class SelectDots implements Iterable<Dot> {
     private ArrayList<Dot> selected;
     private Production production;
     private ArrayList<Dot> dotList;
@@ -20,6 +20,11 @@ public class SelectDots {
         if (!selected.contains(dot)) {
             selected.add(dot);
             dot.getCircle().setFill(Color.CYAN);
+            //System.out.println(DotCalculations.sideToSide(dot.getSideToSide(
+                //production.getSet())));
+            //System.out.println(DotCalculations.frontToBack(dot.getFrontToBack(
+                //production.getSet())));
+            System.out.println(dot);
             return true;
         }
         return false;
@@ -82,5 +87,9 @@ public class SelectDots {
 
     public int selectSize() {
         return selected.size();
+    }
+    @Override
+    public java.util.Iterator<Dot> iterator() {
+        return selected.iterator();
     }
 }

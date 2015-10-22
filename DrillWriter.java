@@ -33,7 +33,8 @@ public class DrillWriter extends Application {
             buttons.playAll(),
             buttons.boxSelect(),
             buttons.toggleSelect(),
-            buttons.moveSelected());
+            buttons.moveSelected(),
+            buttons.snap());
         VBox root = new VBox(canvas, buttonBox);
 
         Scene scene = new Scene(root);

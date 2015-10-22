@@ -109,4 +109,13 @@ public class Dot {
         if (set <= 0 || set >= dot_list.size()) return false;
         return !dot_list.get(set).equals(dot_list.get(set - 1));
     }
+    @Override
+    public String toString() {
+        String ret = "";
+        for (int i = 0; i <= set_length; i++) {
+            ret = ret + DotCalculations.sideToSide(getSideToSide(i)) + "\t"
+                + DotCalculations.frontToBack(getFrontToBack(i)) + "\n";
+        }
+        return ret;
+    }
 }

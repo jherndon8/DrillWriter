@@ -18,6 +18,7 @@ public class Buttons {
     private Button boxSelect;
     private Button toggleSelect;
     private Button moveSelected;
+    private Button snap;
 
     public Buttons(Production production) {
         this.production = production;
@@ -31,6 +32,7 @@ public class Buttons {
         boxSelect = makeBoxSelect();
         toggleSelect = makeToggleSelect();
         moveSelected = makeMoveSelected();
+        snap = makeSnap();
         enableAll();
     }
 
@@ -219,6 +221,23 @@ public class Buttons {
     public Button moveSelected() {
         return moveSelected;
     }
+
+    private Button makeSnap() {
+        Button btn = new Button();
+        btn.setText("Snap");
+        btn.setOnAction(w -> {
+            int s = production.getSet();
+            for (Dot dot: production.getSelector()) {
+                dot.change(s, DotCalculations.snapY(dot.getFrontToBack(s)),
+                    DotCalculations.snapX(dot.getSideToSide(s)));
+                dot.move(s);
+            }
+        });
+        return btn;
+    }
+    public Button snap() {
+        return snap;
+    }
     
     /** 
      * Disables all buttons
@@ -234,6 +253,7 @@ public class Buttons {
         toggleSelect.setDisable(true);
         boxSelect.setDisable(true);
         moveSelected.setDisable(true);
+        snap.setDisable(true);
     }
 
     /**
@@ -253,6 +273,7 @@ public class Buttons {
             if (production.getSelector().selectSize() > 0) {
                 moveSelected.setDisable(false);
             }
+            snap.setDisable(false);
         }
         if (production.getCounts().length > 0) {
             playAll.setDisable(false);

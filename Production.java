@@ -6,7 +6,7 @@ import javafx.scene.layout.Pane;
  * @author JT Herndon
  * @version 1.0
  */
-public class Production {
+public class Production implements Iterable<Dot> {
     private Mode mode;
     private int set = 0;
     private ArrayList<Dot> dotList;
@@ -133,5 +133,9 @@ public class Production {
 
     public SelectDots getSelector() {
         return selector;
+    }
+    @Override
+    public java.util.Iterator<Dot> iterator() {
+        return dotList.iterator();
     }
 }
